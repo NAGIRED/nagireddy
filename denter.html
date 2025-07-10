@@ -104,7 +104,7 @@
 
     <div class="container mt-4">
         <div class="d-flex justify-content-between mb-3">
-          <button class="btn btn-outline-primary" onclick="home()">🏠 Home</button>
+          <!-- <button class="btn btn-outline-primary" onclick="home()">🏠 Home</button> -->
           <button class="btn btn-success" onclick="reservation()">➕ Enter New Bill</button>
         </div>
       
@@ -321,6 +321,7 @@
         }
         function move(index) {
             const item = items1[index];
+            alert(item.productame1);
             localStorage.setItem('invoice',item.sno1);
             localStorage.setItem('name', item.name1);
             localStorage.setItem('cell', item.moblie1);

@@ -423,7 +423,7 @@
             const address= localStorage.getItem('address');
            const gstno= localStorage.getItem('gstno');
             const rate= localStorage.getItem('rate');
-            const product= localStorage.getItem('productname');
+            const product= localStorage.getItem('productame');
             const qty= localStorage.getItem('qty');
             const paymentmode= localStorage.getItem('paymentmode');
             const total=localStorage.getItem('total');
@@ -529,7 +529,7 @@ var x=rate;
     document.getElementById("invoicedate").innerHTML=":"+date;
     document.getElementById("cellno").innerHTML=":"+cell;
     document.getElementById("gstin").innerHTML=":"+gstno;
-    document.getElementById("nameofgoods").innerHTML=product+" "+model+"<br>"+sno+"<br>"+"DP:"+dp+"<br>"+"EMI:"+emi+"<br>"+note;
+    document.getElementById("nameofgoods").innerHTML=product+"<br> "+sno+"<br>"+"DP:"+dp+"<br>"+"EMI:"+emi+"<br>"+note;
     document.getElementById("qty").innerHTML=qty;
     document.getElementById("total").innerHTML=mathrounds(withoutgst);
     document.getElementById("paymentdate").innerHTML=date;
