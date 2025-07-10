@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Inventory Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      background: #f4f6f9;
+      min-height: 100vh;
+      color: #444;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background-color: #1e1e2f;
+      height: 100vh;
+      color: #fff;
+      padding: 30px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 40px;
+      font-size: 26px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+      color: #bbb;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .sidebar a i {
+      margin-right: 12px;
+      font-size: 18px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #4e73df;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(78, 115, 223, 0.4);
+    }
+     /* User Profile Popup Styles */
+    .user-profile-popup {
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      width: 280px;
+      background: #fff;
+      color: #333;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 20px;
+      z-index: 1050;
+      display: none;
+      animation: fadeInPopup 0.3s ease forwards;
+    }
+
+    @keyframes fadeInPopup {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .user-profile-popup h5 {
+      margin-bottom: 15px;
+      color: #6f42c1;
+      font-weight: 700;
+    }
+
+    .user-profile-popup li {
+      list-style: none;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .user-profile-popup li i {
+      color: #6f42c1;
+      margin-right: 10px;
+      font-size: 1.1rem;
+      vertical-align: middle;
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background-color: #fff;
+      padding: 15px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .user-icon {
+      cursor: pointer;
+      color: #6f42c1;
+      font-size: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .user-icon:hover {
+      color: #5932a1;
+    }
+
+    @media (max-width: 768px) {
+      .contact-section {
+        padding: 25px;
+      }
+  
+      .contact-section h2 {
+        font-size: 2rem;
+      }
+  
+      .contact-section button {
+        width: 100%;
+        font-size: 1.1rem;
+      }
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      margin-left: 240px;
+      padding: 30px 40px;
+      width: 100%;
+      min-height: 100vh;
+      background: #f4f6f9;
+      transition: margin-left 0.3s ease;
+    }
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('https://static.vecteezy.com/system/resources/thumbnails/028/288/229/small/digital-e-commerce-sales-increase-save-time-and-money-with-multiple-products-in-one-cart-shop-with-confidence-e-commerce-concept-ai-generative-free-photo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      /* color: #fff; */
+      margin: 0;
+    }
+
+    
+    
+    .top-bar {
+      margin: 30px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn-custom {
+      background-color: #6f42c1;
+      color: white;
+      border-radius: 10px;
+      padding: 12px 20px;
+      border: none;
+      font-size: 1rem;
+      transition: 0.3s ease;
+      font-weight: 500;
+    }
+
+    .btn-custom:hover {
+      background-color: #59309e;
+      box-shadow: 0 4px 12px rgba(111, 66, 193, 0.4);
+    }
+
+    .btn-danger {
+      padding: 12px 20px;
+      font-size: 1rem;
+    }
+
+    .stats-summary {
+      margin: 30px 0;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .stats-summary strong {
+      color: #ffd700;
+    }
+
+    .card {
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .card-body button {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      color: #ccc;
+      font-size: 0.9rem;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 576px) {
+      .btn-custom, .btn-danger {
+        width: 100%;
+      }
+    }
+    .images{
+      height: 150px;
+      width: 150px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+  <h2>My Dashboard</h2>
+  <a href="./dashboard.html" class="active"><i class="fas fa-home"></i> Home</a>
+  <a href="./contact.html"><i class="fas fa-user"></i> Profile</a>
+  <a href="./product.html"><i class="fas fa-box"></i> Add Product</a>
+  <a href="./enter.html"><i class="fas fa-file-invoice"></i> View Bills</a>
+  <a href="./grap.html"><i class="fas fa-chart-bar"></i> Reports</a>
+  <a href="./denter.html"><i class="fas fa-clone"></i> Duplicate Bills</a>
+</nav>
+ <main class="main-content">
+
+ <header class="navbar">
+    <h1>Welcome Back!</h1>
+    <div>
+      <i class="bi bi-person-circle user-icon" id="userIcon" title="User Profile"></i>
+    </div>
+
+    <div class="user-profile-popup" id="userProfilePopup" aria-hidden="true">
+      <h5>User Profile</h5>
+      <ul>
+        <li><i class="bi bi-telephone-fill"></i> +91 93479 89882</li>
+        <li><i class="bi bi-envelope-fill"></i> nagir1090@gmail.com</li>
+        <li><i class="bi bi-geo-alt-fill"></i> Kanakadri Palli (V), Kolimigundal (M), Kurnool (Dist) - 518123</li>
+      </ul>
+    </div>
+  </header>
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-warning" href="#">📦 InventoryPro</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse justify-content-center" id="navbarMain">
+      <ul class="navbar-nav gap-2">
+        <li class="nav-item">
+          <!-- <button class="btn btn-outline-light fa fa -home" onclick="home()"><li class="fa fa-home ">   HOME</li></button> -->
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light" onclick="addProduct()">➕ Add Product</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-danger" onclick="removeProduct()">🗑️ Remove Product</button>
+        </li>
+        <li class="nav-item">
+          <span class="btn btn-outline-warning disabled">📊 Total Products: <strong id="totalProducts">0</strong></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container stats-summary">
+    <div class="row" id="productLists"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 InventoryPro. Smart billing and inventory made easy.
+  </footer>
+</main>
+  <script>
+    async function home() {
+      window.location.href = "home.html";
+    }
+
+    async function fetchProducts() {
+      try {
+        const res = await fetch("http://localhost:3000/api/products");
+        const products = await res.json();
+        localStorage.setItem('productsitems', JSON.stringify(products));
+        return products;
+      } catch (err) {
+        console.warn("Using cached products from localStorage.");
+        const cached = localStorage.getItem('productsitems');
+        return cached ? JSON.parse(cached) : [];
+      }
+    }
+
+    async function displayProducts() {
+      const list = document.getElementById('productLists');
+      const totalProducts = document.getElementById('totalProducts');
+      list.innerHTML = '';
+
+      const products = await fetchProducts();
+      totalProducts.textContent = products.length;
+
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'col-sm-6 col-md-4 col-lg-3 mb-4';
+        card.innerHTML = `
+          <div class="card bg-light h-100 shadow-sm text-center">
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+               
+              <button class="btn btn-primary w-100" onclick="productitem(${product.id}, '${product.name}', '${product.image_url || ''}')">
+                <h6 class="card-title text-uppercase fw-bold">
+  <i class="fa fa-${product.name}"></i> ${product.name}
+</h6>
+
+              </button>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    async function addProduct() {
+      const name = prompt("Enter product name:");
+      if (!name || name.trim() === '') {
+        alert("❌ Product name is required.");
+        return;
+      }
+
+      const products = await fetchProducts();
+      const exists = products.some(p => p.name.toLowerCase().trim() === name.toLowerCase().trim());
+
+      if (exists) {
+        alert("❌ Product already exists!");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:3000/api/products", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name.trim() })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("✅ Product added!");
+          displayProducts();
+        } else {
+          alert(`❌ Failed: ${result.error || 'Unknown error'}`);
+        }
+      } catch (err) {
+        console.error("Add error:", err);
+        alert("❌ Failed to add product.");
+      }
+    }
+
+    async function removeProduct() {
+      const name = prompt("Enter product name to delete:");
+      if (!name) return;
+
+      const products = await fetchProducts();
+      const found = products.find(p => p.name.toLowerCase() === name.toLowerCase());
+
+      if (!found) {
+        alert("❌ Product not found.");
+        return;
+      }
+
+      const confirmDelete = confirm(`Delete "${found.name}"?`);
+      if (!confirmDelete) return;
+
+      const res = await fetch(`http://localhost:3000/api/products/${found.id}`, {
+        method: "DELETE"
+      });
+
+      if (res.ok) {
+        alert("✅ Product removed!");
+        displayProducts();
+      } else {
+        alert("❌ Failed to remove.");
+      }
+    }
+
+    function productitem(id, name, image) {
+      localStorage.setItem('product_id', id);
+      localStorage.setItem('name', name);
+      localStorage.setItem('image', image);
+      window.location.href = "model.html";
+    }
+
+    displayProducts();
+    // profile
+    const userIcon = document.getElementById('userIcon');
+    const userProfilePopup = document.getElementById('userProfilePopup');
+
+    userIcon.addEventListener('click', () => {
+      const isVisible = userProfilePopup.style.display === 'block';
+      userProfilePopup.style.display = isVisible ? 'none' : 'block';
+      userProfilePopup.setAttribute('aria-hidden', isVisible);
+    });
+
+    // Close popup if clicking outside
+    document.addEventListener('click', (event) => {
+      if (!userIcon.contains(event.target) && !userProfilePopup.contains(event.target)) {
+        userProfilePopup.style.display = 'none';
+        userProfilePopup.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+  </script>
+
+</body>
+</html>

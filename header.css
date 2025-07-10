@@ -1,0 +1,151 @@
+
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      background: #f4f6f9;
+      min-height: 100vh;
+      color: #444;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background-color: #1e1e2f;
+      height: 100vh;
+      color: #fff;
+      padding: 30px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 40px;
+      font-size: 26px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+      color: #bbb;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .sidebar a i {
+      margin-right: 12px;
+      font-size: 18px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #4e73df;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(78, 115, 223, 0.4);
+    }
+     /* User Profile Popup Styles */
+    .user-profile-popup {
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      width: 280px;
+      background: #fff;
+      color: #333;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 20px;
+      z-index: 1050;
+      display: none;
+      animation: fadeInPopup 0.3s ease forwards;
+    }
+
+    @keyframes fadeInPopup {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .user-profile-popup h5 {
+      margin-bottom: 15px;
+      color: #6f42c1;
+      font-weight: 700;
+    }
+
+    .user-profile-popup li {
+      list-style: none;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .user-profile-popup li i {
+      color: #6f42c1;
+      margin-right: 10px;
+      font-size: 1.1rem;
+      vertical-align: middle;
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background-color: #fff;
+      padding: 15px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .user-icon {
+      cursor: pointer;
+      color: #6f42c1;
+      font-size: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .user-icon:hover {
+      color: #5932a1;
+    }
+
+    @media (max-width: 768px) {
+      .contact-section {
+        padding: 25px;
+      }
+  
+      .contact-section h2 {
+        font-size: 2rem;
+      }
+  
+      .contact-section button {
+        width: 100%;
+        font-size: 1.1rem;
+      }
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      margin-left: 240px;
+      padding: 30px 40px;
+      width: 100%;
+      min-height: 100vh;
+      background: #f4f6f9;
+      transition: margin-left 0.3s ease;
+    }

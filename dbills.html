@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Page</title>
+    <link rel="stylesheet" href="./header.css">
+     <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-size: 11px;
+     
+        }
+    
+        p {
+            font-size: 11px;
+        }
+    
+        .container {
+            width: 90%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #131212e8;
+        }
+    
+        h1, h2, h5 {
+            text-align: center;
+            color: #333;
+        }
+    
+        .header, .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+    
+        .header .left, .header .right {
+            width: 45%;
+        }
+    
+        #right1 {
+            text-align: right;
+        }
+    
+        .invoice, .cashcredit {
+            /* padding: 10px; */
+            /* margin-bottom: 20px; */
+        }
+    
+        /* .details, .total {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        } */
+    
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+    
+        table, th, td {
+            border: 1px solid black;
+        }
+    
+        th, td {
+            /* padding: 10px; */
+            text-align: left;
+        }
+    
+        th {
+            background-color: #f2f2f2;
+        }
+    
+        .total p {
+            font-weight: bold;
+        }
+    
+        .total {
+            text-align: right;
+            width: 50%;
+            margin-top: 20px;
+            position: relative;
+        }
+    
+        #dealers {
+            text-align: center;
+        }
+    
+        #line {
+            margin: 20px;
+        }
+    
+        p {
+            margin: 5px;
+        }
+    
+        /* Adjust the invoice details */
+        .header .left p {
+            margin: 5px 0;
+        }
+    
+        .header .right p {
+            margin: 5px 0;
+        }
+    
+        .header .left p, .header .right p {
+            font-size: 11px;
+        }
+    
+        .header .left p strong, .header .right p strong {
+            display: inline-block;
+            width: 120px;
+        }
+    
+        #right1 {
+            position: relative;
+            top: -40px;
+            left: -35px;
+        }
+    
+        #remarks {
+            width: 90%;
+            height: 100px;
+            border-bottom: 2px solid black;
+            margin-bottom: 50px;
+        }
+    
+        #sign {
+            /* position: relative; */
+            text-align: left;
+            position: relative;
+            top:-80PX;
+            left: 350px;
+            /* left: -300px; */
+
+        }
+     
+        @media print {
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        height: 50%; /* Half of A4 */
+        page-break-after: always; /* If multiple pages */
+        overflow: hidden;
+        box-sizing: border-box;
+        border: 2px solid black; /* Optional: visible box */
+        margin: 0 auto;
+    }
+
+    /* Optional: Scale content to fit better */
+    body {
+        transform: scale(0.9);
+        transform-origin: top center;
+    }
+
+    .footer {
+        /* display: none;x */
+    }
+}
+
+        #img1{
+            background-color: red;
+            width: 5%;
+            height: 80px;
+            position: relative;
+            left: -20px;
+        }
+        #img2{
+            background-color: red;
+            width: 5%;
+            height: 80px;
+            position: relative;
+            left: 150px;
+        }
+        #cellnum{
+            position: relative;
+            left: 50px;
+        }
+        #postion{
+            position: relative;
+            top: -120px;
+            
+        }
+        .invoice{
+            position: relative;
+            left: -30px;
+        }
+        .details{
+            position: relative;
+            top: -20px;
+        }
+        .header{
+            position: relative;
+            
+        }
+        #statebank{
+            position: relative;
+            top: -30px;
+        }
+        #paymentmove{
+            position: relative;
+            top: -40px;
+        }
+        #invoicemove{
+            position: relative;
+            top: -20px;
+        }
+    </style>
+    
+</head>
+<body>
+    <nav class="sidebar">
+  <h2>My Dashboard</h2>
+  <a href="./dashboard.html" class="active"><i class="fas fa-home"></i> Home</a>
+  <a href="./contact.html"><i class="fas fa-user"></i> Profile</a>
+  <a href="./product.html"><i class="fas fa-box"></i> Add Product</a>
+  <a href="./enter.html"><i class="fas fa-file-invoice"></i> View Bills</a>
+  <a href="./grap.html"><i class="fas fa-chart-bar"></i> Reports</a>
+  <a href="./denter.html"><i class="fas fa-clone"></i> Duplicate Bills</a>
+</nav>
+ <main class="main-content">
+
+ <header class="navbar">
+    <h1>Welcome Back!</h1>
+    <div>
+      <i class="bi bi-person-circle user-icon" id="userIcon" title="User Profile"></i>
+    </div>
+
+    <div class="user-profile-popup" id="userProfilePopup" aria-hidden="true">
+      <h5>User Profile</h5>
+      <ul>
+        <li><i class="bi bi-telephone-fill"></i> +91 93479 89882</li>
+        <li><i class="bi bi-envelope-fill"></i> nagir1090@gmail.com</li>
+        <li><i class="bi bi-geo-alt-fill"></i> Kanakadri Palli (V), Kolimigundal (M), Kurnool (Dist) - 518123</li>
+      </ul>
+    </div>
+  </header>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="left">
+                <h3 style="text-align: left;"><strong>GSTIN:  37BAHPC1458G1ZW</strong></h3>
+                <div id="img1"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7XLapGisOONw1_mN2YuJH8k3q9sqycZlx_qFzQ_22-8hNJMpMkY9apli3NqgjU6KLgdY&usqp=CAU" alt="No Imge" height="80px"></div>
+            </div>
+           
+            <div class="right">
+                <h3 id="cellnum"><strong>Phone: 9550068000, 8106625868</strong></h3>
+                <div id="img2"><img src="https://i.pinimg.com/736x/1b/fb/94/1bfb94cd2090a4f5593fe159b1ccc386.jpg" alt="No Imge" height="80px"></div>
+                 
+            </div>
+        </div>
+
+ <div id="postion">       
+        <div class="invoice">
+            <h5 style="font-size: 12px;">INVOICE</h5>
+            <h5 style="font-size: 14px;">SRI VEERABRAMHENDRA SWAMY <br> ELECTRONICS & ELECTRICALS</h5>
+            <h5 style="font-size: 12px;"></h5>
+            <div id="invoicemove">
+            <h5 id="dealers"><strong> Dealers in: Samsung, L.G, Whirlpool, Sony, Oltas, Hajer, Vivo, Oppo, Redmi</strong></h5>
+            <h5>#1/146, Opp: SBI Bank, Main Road, Kolimigundal - 518123</h5>
+        </div>
+        </div>
+        <!-- Cash/Credit Bill Section -->
+        <div class="cashcredit">
+            <!-- <h3 id="line">CASH/CREDIT BILL</h3> -->
+            <div class="header">
+                <div class="left">
+                    <p><strong>Invoice No</strong> <span id="invoiceno">1234567</span></p>
+                    <p><strong>Name</strong> <span id="name">Nagi</span></p>
+                    <p><strong>Address</strong> <span id="address">Kolimigundal</span></p>
+                </div>
+                <div class="right">
+                    <p><strong>Date</strong> <span id="invoicedate">21/02/2025</span></p>
+                    <p><strong>Cell No</strong> <span id="cellno">1234567890</span></p>
+                    <p><strong>GSTIN</strong> <span id="gstin">37GDDAYTSU44</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Bill Details -->
+        <div class="details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Name Of Goods</th>
+                        <th>HSN </th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;" id="sno">1</td>
+                        <td style="text-align: left;" id="nameofgoods"><span>Moblic</span></td>
+                        <td style="text-align: center;" id="HSNCODE">8536</td> 
+                        <td style="text-align: center;" id="qty"><span>1</span></td>
+                        <td style="text-align: center;" id="rates"><span>2500.00</span></td>
+                        <td style="text-align: center;" id="total"><span>2500.00</span></td>
+                    </tr>
+                    
+                    <!-- Additional rows for more items can be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Total Section -->
+        <div class="header">
+            <div class="left">
+                <div id="paymentmove">
+                <p><strong>Rupees in words:</strong> <span id="words"></span></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Payment <br>Date</th>
+                            <th style="text-align: center;">Description</th>
+                            <th style="text-align: center;">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;" id="paymentdate"><span>2/02/2025</span></td>
+                            <td style="text-align: center;" id="Description"><span>cash</span></td>
+                            <td style="text-align: center;"id="total1" ><span>2500.00</span></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" style="text-align: right;"><strong>Total</strong></td>
+                            <td style="text-align: center;" ><span id="totalcash">123</span></td>
+                        </tr>
+                    </tbody>
+                </table> 
+            </div>
+            </div>
+           
+            <div class="right">
+                <table id="right1">
+                    <tr>
+                        <td style="text-align: right;"><strong>Total (RS):</strong></td>
+                        <td style="text-align: center;"><span id="subtotal">59.00</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" ><strong>Total SGST (9%):</strong></td>
+                        <td style="text-align: center;"><span id="sgst">5.90</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><strong>Total CGST (9%):</strong></td>
+                        <td style="text-align: center;"><span id="cgst">5.90</span></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><strong>Grand Total:</strong></td>
+                        <td style="text-align: center;"><span id="Grandtotal1">64.90</span></td>
+                    </tr>
+                </table>  
+            </div>
+        </div>
+        <div id="statebank">
+        <table style="width: auto;">
+            <tr>
+            <td> Stae Bank Of India (Kolimigundla Branch) <br>
+                Bank Account Number : 37137665821 <br>
+                Bank Branch IFSC     :SBINOO13236
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Note :Goods once sold will not be taken back or excharged <br>subject to Banaganapalli Jurisdicion.
+            </td>
+        </tr>
+        </table> 
+    </div>
+        <!-- Footer -->
+        <div id="right">
+        
+        <h5 id="sign">Signature & Seal of the Consignee or  his Authorised agent</h5>
+    </div>
+</div>
+    </div></main>
+    <script>
+        //    const bills = JSON.parse(localStorage.getItem('bills')) || [];
+           const invoice = localStorage.getItem('invoice');
+        //    alert(invoice);
+       const name=   localStorage.getItem('name');
+    //    alert(name);
+           const cell= localStorage.getItem('cell');
+            const date= localStorage.getItem('date');
+            const address= localStorage.getItem('address');
+           const gstno= localStorage.getItem('gstno');
+            const rate= localStorage.getItem('rate');
+            const productame= localStorage.getItem('productame');
+            const qty= localStorage.getItem('qty');
+            const paymentmode= localStorage.getItem('paymentmode');
+            const total=localStorage.getItem('total');
+            const sno= localStorage.getItem('sno');
+            const dp= localStorage.getItem('dp');
+            const emi= localStorage.getItem('emi');
+            const note=localStorage.getItem('note');
+// number to word star
+            function numberToWords(num) {
+        const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+        const teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+        const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+        const thousands = ["", "Thousand", "Million", "Billion"];
+
+        if (num === 0) return "Zero";
+
+        let words = '';
+
+        function convertHundreds(num) {
+            let str = '';
+            if (num > 99) {
+                str += ones[Math.floor(num / 100)] + ' Hundred ';
+                num %= 100;
+            }
+            if (num > 19) {
+                str += tens[Math.floor(num / 10)] + ' ';
+                num %= 10;
+            }
+            if (num > 9) {
+                str += teens[num - 10] + ' ';
+            } else {
+                str += ones[num] + ' ';
+            }
+            return str;
+        }
+
+        let i = 0;
+        while (num > 0) {
+            let rem = num % 1000;
+            if (rem !== 0) {
+                words = convertHundreds(rem) + thousands[i] + ' ' + words;
+            }
+            num = Math.floor(num / 1000);
+            i++;
+        }
+
+        return words.trim();
+    }
+
+    
+        // const number = parseInt(document.getElementById('numberInput').value);
+        const words = numberToWords(total);
+        document.getElementById('words').textContent = words;
+    // number to word stop
+    // const n=total;
+
+    var y=(rate-(rate*18/118)).toFixed(2); 
+    // alert(y);
+    var num1=y;
+    var num2=parseFloat(num1)*parseInt(qty);
+    var gstnum=(num2/100*9).toFixed(2);
+    //  alert(gstnum);
+     
+    var totalnum=parseFloat(gstnum)+parseFloat(gstnum)+parseFloat(num2);
+    //  alert(Math.round(totalnum));
+     //  Math.round(num1)
+    var x=(rate-(rate*18/118)).toFixed(2);
+    const withoutgst=(parseFloat(x)*parseFloat(qty)).toFixed(2);
+    x=x.toString();
+    var afterPoint = '';
+    if(x.indexOf('.') > 0)
+       afterPoint = x.substring(x.indexOf('.'),x.length);
+    x = Math.floor(x);
+    x=x.toString();
+    var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+    document.getElementById("rates").innerHTML=res; 
+    document.getElementById("subtotal").innerHTML=mathrounds(withoutgst);
+function mathrounds(rate){
+var x=rate;
+    x=x.toString();
+    var afterPoint = '';
+    if(x.indexOf('.') > 0)
+       afterPoint = x.substring(x.indexOf('.'),x.length);
+    x = Math.floor(x);
+    x=x.toString();
+    var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+    return res;
+}
+    document.getElementById("total1").innerHTML=mathrounds(total)+".00";
+    document.getElementById("Grandtotal1").innerHTML=mathrounds(total)+".00";
+    document.getElementById("totalcash").innerHTML=mathrounds(total)+".00";
+    document.getElementById("invoiceno").innerHTML=":"+invoice;
+    document.getElementById("name").innerHTML=":"+name;
+    document.getElementById("address").innerHTML=":"+address;
+    document.getElementById("invoicedate").innerHTML=":"+date;
+    document.getElementById("cellno").innerHTML=":"+cell;
+    document.getElementById("gstin").innerHTML=":"+gstno;
+    document.getElementById("nameofgoods").innerHTML=productame+"<br>"+sno+"<br>"+"DP:"+dp+"<br>"+"EMI:"+emi+"<br>"+note;
+    document.getElementById("qty").innerHTML=qty;
+    document.getElementById("total").innerHTML=mathrounds(withoutgst);
+    document.getElementById("paymentdate").innerHTML=date;
+    document.getElementById("Description").innerHTML=paymentmode;
+    document.getElementById("sgst").innerHTML=gstnum;
+    document.getElementById("cgst").innerHTML=gstnum;
+    document.getElementById("total12").innerHTML=mathrounds(totalnum);
+
+
+
+
+
+
+     // profile
+    const userIcon = document.getElementById('userIcon');
+    const userProfilePopup = document.getElementById('userProfilePopup');
+
+    userIcon.addEventListener('click', () => {
+      const isVisible = userProfilePopup.style.display === 'block';
+      userProfilePopup.style.display = isVisible ? 'none' : 'block';
+      userProfilePopup.setAttribute('aria-hidden', isVisible);
+    });
+
+    // Close popup if clicking outside
+    document.addEventListener('click', (event) => {
+      if (!userIcon.contains(event.target) && !userProfilePopup.contains(event.target)) {
+        userProfilePopup.style.display = 'none';
+        userProfilePopup.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    </script>
+</body>
+</html>

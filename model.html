@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory - Product Management</title>
+  <head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="./header.css">
+ </head>
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background-color: #005f73;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .btn-custom {
+      background-color: #6f42c1;
+      color: white;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-custom:hover {
+      background-color: #5932a1;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .btn-sell {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-sell:hover {
+      background-color: #218838;
+    }
+
+    table {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+
+    .table th {
+      background-color: #e9ecef;
+      color: #495057;
+    }
+
+    .table td, .table th {
+      vertical-align: middle;
+    }
+
+    .card-style {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .total-summary {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-left: 5px solid #6f42c1;
+    }
+
+    .total-summary p {
+      margin: 0;
+    }
+
+    .total-summary strong {
+      color: #6f42c1;
+    }
+
+    .table-responsive {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+    
+  #modelTable {
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+  }
+
+  #modelTable th, #modelTable td {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  #modelTable td:first-child {
+    font-weight: 600;
+  }
+
+
+  </style>
+</head>
+<body>
+
+ <nav class="sidebar">
+  <h2>My Dashboard</h2>
+  <a href="./dashboard.html" class="active"><i class="fas fa-home"></i> Home</a>
+  <a href="./contact.html"><i class="fas fa-user"></i> Profile</a>
+  <a href="./product.html"><i class="fas fa-box"></i> Add Product</a>
+  <a href="./enter.html"><i class="fas fa-file-invoice"></i> View Bills</a>
+  <a href="./grap.html"><i class="fas fa-chart-bar"></i> Reports</a>
+  <a href="./denter.html"><i class="fas fa-clone"></i> Duplicate Bills</a>
+</nav>
+ <main class="main-content">
+
+ <header class="navbar">
+    <h1>Welcome Back!</h1>
+    <div>
+      <i class="bi bi-person-circle user-icon" id="userIcon" title="User Profile"></i>
+    </div>
+
+    <div class="user-profile-popup" id="userProfilePopup" aria-hidden="true">
+      <h5>User Profile</h5>
+      <ul>
+        <li><i class="bi bi-telephone-fill"></i> +91 93479 89882</li>
+        <li><i class="bi bi-envelope-fill"></i> nagir1090@gmail.com</li>
+        <li><i class="bi bi-geo-alt-fill"></i> Kanakadri Palli (V), Kolimigundal (M), Kurnool (Dist) - 518123</li>
+      </ul>
+    </div>
+  </header>
+ 
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-warning" href="#">📦 <span id="productTitleNav"></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarModels">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarModels">
+      <ul class="navbar-nav gap-2">
+        <li class="nav-item">
+          <button class="btn btn-outline-light" onclick="back()">← Back</button>
+        </li>
+          <li class="nav-item">
+          <button class="btn btn-outline-light" onclick="home()">🏠 Home</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-success" onclick="addProduct()">➕ Add Model</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-danger" onclick="removeProduct()">🗑️ Remove Model</button>
+        </li>
+        <!-- <li class="nav-item">
+          <button class="btn btn-outline-primary" onclick="exportToExcel()">📥 Export Excel</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-info" onclick="exportToWord()">📝 Export Word</button>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+    <div class="card-style">
+  <div style="width: 30%; margin: auto;">
+  <table class="table table-striped table-hover" id="modelTable">
+    <thead class="table-dark">
+      <tr>
+        <th>Model</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows will be inserted here -->
+    </tbody>
+  </table>
+</div>
+
+  <!-- <div class="d-flex gap-2">
+    <button class="btn btn-warning" onclick="goToSelectedModel()">View Model Details</button>
+    <button class="btn btn-info" onclick="exportToExcel()">📥 Export to Excel</button>
+    <button class="btn btn-secondary" onclick="exportToWord()">📝 Export to Word</button>
+  </div> -->
+</div>
+ </main>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
+<script>
+  function back() {
+    window.location.href = "product.html";
+  }
+ async function home() {
+      window.location.href = "home.html";
+    }
+  const name1 = localStorage.getItem("name");
+  const productid = localStorage.getItem("product_id");
+  const image = localStorage.getItem("image");
+
+   
+// document.getElementById("productTitleNav").textContent = name1 .toUpperCase() || "Product";
+// document.getElementById("productTitleHeader").textContent = name1.toUpperCase() || "Product";
+
+
+  async function fetchProducts() {
+    try {
+      const res = await fetch("http://localhost:3000/api/model");
+      const model = await res.json();
+      localStorage.setItem('modelitems', JSON.stringify(model));
+      return model;
+    } catch (err) {
+      console.warn("Using cached products from localStorage.");
+      const cached = localStorage.getItem('modelitems');
+      return cached ? JSON.parse(cached) : [];
+    }
+  }
+
+ async function displayProducts() {
+  const tableBody = document.querySelector('#modelTable tbody');
+  tableBody.innerHTML = ''; // Clear existing rows
+
+  const models = await fetchProducts();
+  const filteredModels = models.filter(model => model.product_id == productid);
+
+  filteredModels.forEach(model => {
+    const row = document.createElement('tr');
+
+    const modelCell = document.createElement('td');
+    modelCell.textContent = model.model;
+
+    const actionCell = document.createElement('td');
+    const button = document.createElement('button');
+    button.className = 'btn btn-primary btn-sm';
+    button.textContent = 'Select';
+    button.onclick = () => productitem(name1, model.id, model.product_id, model.model);
+    actionCell.appendChild(button);
+
+    row.appendChild(modelCell);
+    row.appendChild(actionCell);
+
+    tableBody.appendChild(row);
+  });
+
+  localStorage.setItem('filteredModels', JSON.stringify(filteredModels));
+}
+function productitem(name1, id, product_id, model) {
+  localStorage.setItem("name",name1);
+  localStorage.setItem("model_id", id);
+  localStorage.setItem("product_id", product_id);
+  localStorage.setItem("model", model);
+  window.location.href = "inventory.html";
+}
+
+ 
+// function handleModelSelection() {
+//   const index = document.getElementById("modelSelect").value;
+//   const models = JSON.parse(localStorage.getItem("filteredModels"));
+//   const selected = models[index];
+//   localStorage.setItem("selected_model", JSON.stringify(selected));
+//   localStorage.setItem("model", selected.model);
+//   localStorage.setItem("productname",selected.product_id);
+//   localStorage.setItem("model_id",selected.id);
+
+// }
+
+// function goToSelectedModel() {
+//   const modelData = localStorage.getItem("selected_model");
+//   if (!modelData) {
+//     alert("Please select a model first.");
+//     return;
+//   }
+//   window.location.href = "inventory.html";
+// }
+
+ 
+  async function addProduct() {
+    const model = prompt("Enter model:");
+    const addedDate = new Date().toISOString();
+
+    if (!name1 || !model || !productid || name1.trim() === '' || model.trim() === '' || productid.trim() === '') {
+      alert("❌ Invalid input!");
+      return;
+    }
+
+    const allModels = await fetchProducts();
+    if (allModels.some(p =>
+      p.model.toLowerCase() === model.toLowerCase() &&
+      p.product_id == productid
+    )) {
+      alert("❌ This model already exists for the product!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/model", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: model.trim(),
+          product_id: productid.trim()
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("✅ Model number added!");
+        displayProducts();
+      } else {
+        alert(`❌ Failed to add: ${result.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      console.error("Error adding model:", err);
+      alert("❌ An error occurred while adding the model.");
+    }
+  }
+
+  async function removeProduct() {
+    const model = prompt("Enter product model to delete:");
+    if (!model) return;
+
+    const models = await fetchProducts();
+    const found = models.find(p => p.model.toLowerCase() === model.toLowerCase() && p.product_id == productid);
+
+    if (!found) {
+      alert("Product model not found.");
+      return;
+    }
+
+    const confirmDelete = confirm(`Are you sure you want to delete "${found.model}"?`);
+    if (!confirmDelete) return;
+
+    const res = await fetch(`http://localhost:3000/api/model/${found.id}`, {
+      method: "DELETE"
+    });
+
+    if (res.ok) {
+      alert("✅ Model number removed!");
+      displayProducts();
+    } else {
+      alert("❌ Failed to remove model number.");
+    }
+  }
+
+ 
+
+  // function exportToExcel() {
+  //   const ws = XLSX.utils.table_to_sheet(document.querySelector("table"));
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, "Products");
+  //   XLSX.writeFile(wb, "Product_Inventory.xlsx");
+  // }
+
+  // async function exportToWord() {
+  //   const models = await fetchProducts();
+  //   let html = '<html><head><title>Product Inventory</title></head><body>';
+  //   html += '<h2>Product Inventory List</h2>';
+  //   html += '<table border="1" cellpadding="5" cellspacing="0">';
+  //   html += '<thead><tr><th>Product ID</th><th>Name</th><th>Model</th><th>Date Added</th></tr></thead>';
+  //   html += '<tbody>';
+
+  //   models.filter(m => m.product_id == productid).forEach(product => {
+  //     html += `<tr>
+  //       <td>${product.product_id}</td>
+  //       <td>${name1}</td>
+  //       <td>${product.model}</td>
+  //       <td>${product.addedDate ? new Date(product.addedDate).toLocaleDateString() : 'N/A'}</td>
+  //     </tr>`;
+  //   });
+
+  //   html += '</tbody></table></body></html>';
+
+  //   const blob = new Blob([html], { type: 'application/msword' });
+  //   const link = document.createElement('a');
+  //   link.href = URL.createObjectURL(blob);
+  //   link.download = 'Product_Inventory.doc';
+  //   link.click();
+  // }
+
+  // Initial load
+  displayProducts();
+   // profile
+    const userIcon = document.getElementById('userIcon');
+    const userProfilePopup = document.getElementById('userProfilePopup');
+
+    userIcon.addEventListener('click', () => {
+      const isVisible = userProfilePopup.style.display === 'block';
+      userProfilePopup.style.display = isVisible ? 'none' : 'block';
+      userProfilePopup.setAttribute('aria-hidden', isVisible);
+    });
+
+    // Close popup if clicking outside
+    document.addEventListener('click', (event) => {
+      if (!userIcon.contains(event.target) && !userProfilePopup.contains(event.target)) {
+        userProfilePopup.style.display = 'none';
+        userProfilePopup.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+</script>
+
+</body>
+</html>

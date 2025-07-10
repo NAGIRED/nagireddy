@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Sales Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="./header.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background-color: #17a2b8;
+      color: white;
+      padding: 25px;
+      text-align: center;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 900px;
+      margin-top: 30px;
+    }
+
+    .btn-custom {
+      background-color: #6f42c1;
+      color: white;
+    }
+
+    .btn-custom:hover {
+      background-color: #5633a6;
+    }
+
+    .table-container {
+      margin-top: 30px;
+    }
+
+    .table th {
+      background-color: #e9ecef;
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- <script src="./header.js"></script> -->
+<nav class="sidebar">
+  <h2>My Dashboard</h2>
+  <a href="./dashboard.html" class="active"><i class="fas fa-home"></i> Home</a>
+  <a href="./contact.html"><i class="fas fa-user"></i> Profile</a>
+  <a href="./product.html"><i class="fas fa-box"></i> Add Product</a>
+  <a href="./enter.html"><i class="fas fa-file-invoice"></i> View Bills</a>
+  <a href="./grap.html"><i class="fas fa-chart-bar"></i> Reports</a>
+  <a href="./denter.html"><i class="fas fa-clone"></i> Duplicate Bills</a>
+</nav>
+ <main class="main-content">
+
+ <header class="navbar">
+    <h1>Welcome Back!</h1>
+    <div>
+      <i class="bi bi-person-circle user-icon" id="userIcon" title="User Profile"></i>
+    </div>
+
+    <div class="user-profile-popup" id="userProfilePopup" aria-hidden="true">
+      <h5>User Profile</h5>
+      <ul>
+        <li><i class="bi bi-telephone-fill"></i> +91 93479 89882</li>
+        <li><i class="bi bi-envelope-fill"></i> nagir1090@gmail.com</li>
+        <li><i class="bi bi-geo-alt-fill"></i> Kanakadri Palli (V), Kolimigundal (M), Kurnool (Dist) - 518123</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="mb-3">
+      <label for="reportDate" class="form-label">Select Date:</label>
+      <input type="date" class="form-control w-auto d-inline-block" id="reportDate" />
+      <button class="btn btn-primary ms-2" onclick="generateReport()">Generate</button>
+      <button class="btn btn-success ms-2" onclick="exportReport()">Export to Excel</button>
+      <button class="btn btn-secondary ms-2" onclick="goBack()">← Back</button>
+    </div>
+
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Model</th>
+            <th>S.No</th>
+            <th>Quantity</th>
+            <th>Price (₹)</th>
+            <th>Customer Name</th>
+          </tr>
+        </thead>
+        <tbody id="reportBody"></tbody>
+      </table>
+    </div>
+  </div>
+ </main>
+  <script>
+    let items1 = JSON.parse(localStorage.getItem('items1')) || [];
+    let filteredData = [];
+
+    function generateReport() {
+      const reportDate = document.getElementById('reportDate').value;
+
+      if (!reportDate) {
+        alert("Please select a date.");
+        return;
+      }
+
+      const formattedDate = new Date(reportDate).toLocaleDateString('en-GB').split('/').join('-');
+      filteredData = items1.filter(item => item.date === formattedDate);
+
+      const tbody = document.getElementById('reportBody');
+      tbody.innerHTML = '';
+
+      if (filteredData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center">No data found for this date.</td></tr>';
+        return;
+      }
+
+      filteredData.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.model}</td>
+          <td>${item.sno}</td>
+          <td>${item.quantityToSell}</td>
+          <td>${item.pricetosell}</td>
+          <td>${item.cname}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function exportReport() {
+      if (filteredData.length === 0) {
+        alert("Generate report first.");
+        return;
+      }
+
+      const data = filteredData.map(item => ({
+        "Product Name": item.name,
+        "Model": item.model,
+        "Serial No": item.sno,
+        "Quantity": item.quantityToSell,
+        "Price (₹)": item.pricetosell,
+        "Customer Name": item.cname
+      }));
+
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Day Report");
+
+      const selectedDate = document.getElementById('reportDate').value;
+      const formattedDate = new Date(selectedDate).toLocaleDateString('en-GB').split('/').join('-');
+      XLSX.writeFile(wb, `DayReport_${formattedDate}.xlsx`);
+    }
+
+    function goBack() {
+      window.location.href = "home.html"; // or wherever you want to redirect
+    }
+    // profile
+    const userIcon = document.getElementById('userIcon');
+    const userProfilePopup = document.getElementById('userProfilePopup');
+
+    userIcon.addEventListener('click', () => {
+      // alert("heloo");
+      const isVisible = userProfilePopup.style.display === 'block';
+      userProfilePopup.style.display = isVisible ? 'none' : 'block';
+      userProfilePopup.setAttribute('aria-hidden', isVisible);
+    });
+
+    // Close popup if clicking outside
+    document.addEventListener('click', (event) => {
+      if (!userIcon.contains(event.target) && !userProfilePopup.contains(event.target)) {
+        userProfilePopup.style.display = 'none';
+        userProfilePopup.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+  </script>
+</body>
+</html>
